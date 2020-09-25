@@ -1,5 +1,7 @@
 package userinterface;
 
+import objectgame.MainCharacter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -7,13 +9,14 @@ import java.awt.event.KeyListener;
 
 public class GameScreen extends JPanel implements Runnable, KeyListener {
     public static final float GRAVITY = 0.1f;
-    private float x = 0;
-    private float y = 0;
+    public static final float GROUNDY = 300; //by pixel
+
+    private MainCharacter mainCharacter;
     private Thread thread;
-    private float speedY = 0;
+
     public GameScreen() {
         thread = new Thread(this);
-
+        mainCharacter = new MainCharacter();
     }
 
     public void startGame() {
@@ -24,8 +27,7 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
     public void run() {
         while(true) {
             try {
-                speedY += GRAVITY;
-                y += speedY;
+                mainCharacter.update();
                 repaint();
                 thread.sleep(20);
             } catch (InterruptedException e) {
@@ -40,8 +42,8 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
         g.setColor(Color.WHITE);
         g.fillRect(0,0, getWidth(), getHeight());
         g.setColor(Color.RED);
-        g.drawRect((int)x,(int) y,100,100);
-
+        g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
+        mainCharacter.draw(g);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        speedY = -4;
+        mainCharacter.jump();
     }
 
     @Override
