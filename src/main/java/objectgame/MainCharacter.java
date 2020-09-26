@@ -6,17 +6,21 @@ import utils.Resource;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static userinterface.GameScreen.GRAVITY;
+import static userinterface.GameScreen.GROUNDY;
+
 public class MainCharacter {
-    public static final float GRAVITY = 0.1f;
-    public static final float GROUNDY = 300; //by pixel
-    private float x = 0;
+    private float x = 50;
     private float y = 0;
     private float speedY = 0;
     private Animation characterRun;
+    private Rectangle rect;
 
     public MainCharacter() {
-        characterRun = new Animation();
+        characterRun = new Animation(200);
         characterRun.addFrame(Resource.getResourceImage("data/main-character1.png"));
+        characterRun.addFrame(Resource.getResourceImage("data/main-character2.png"));
+        rect = new Rectangle();
     }
 
     public void update() {
@@ -28,6 +32,14 @@ public class MainCharacter {
             speedY += GRAVITY;
             y += speedY;
         }
+        rect.x = (int)x;
+        rect.y = (int)y;
+        rect.width = characterRun.getFrame().getWidth();
+        rect.height = characterRun.getFrame().getHeight();
+    }
+
+    public Rectangle getBound() {
+        return rect;
     }
 
     public void draw(Graphics g) {

@@ -8,15 +8,21 @@ import java.util.ArrayList;
 public class Animation {
     private List<BufferedImage> frames;
     private int frameindex = 0;
+    private int deltaTime;
+    private long priviousTime;
 
-    public Animation() {
+    public Animation(int deltaTime) {
+        this.deltaTime = deltaTime;
         frames = new ArrayList<BufferedImage>();
     }
 
     public void update() {
-        frameindex++;
-        if (frameindex >= frames.size())
-            frameindex = 0;
+        if (System.currentTimeMillis() - priviousTime > deltaTime) {
+            frameindex++;
+            if (frameindex >= frames.size())
+                frameindex = 0;
+            priviousTime = System.currentTimeMillis();
+        }
     }
 
     public void addFrame(BufferedImage frame) {

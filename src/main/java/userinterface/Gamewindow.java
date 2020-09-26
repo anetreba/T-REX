@@ -8,7 +8,8 @@ public class Gamewindow extends JFrame {
 
     public Gamewindow() {
         super("T-REX");
-        setSize(400, 400);
+        setSize(600, 200);
+//        setLocation(400, 200); //location of gamewindow in screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameScreen = new GameScreen();
         add(gameScreen);
