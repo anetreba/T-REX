@@ -1,5 +1,6 @@
 package objectgame;
 
+import userinterface.GameScreen;
 import utils.Resource;
 
 import java.awt.*;
@@ -13,7 +14,13 @@ public class EnemyManager {
     private Random random;
     private BufferedImage imageCactus1, ImageCactus2;
 
-    public EnemyManager() {
+    private MainCharacter mainCharacter;
+    private GameScreen gameScreen;
+
+
+    public EnemyManager(MainCharacter mainCharacter, GameScreen gameScreen) {
+        this.mainCharacter = mainCharacter;
+        this.gameScreen = gameScreen;
         enemies = new ArrayList<Enemy>();
         random = new Random();
 
@@ -25,6 +32,12 @@ public class EnemyManager {
     public void update() {
         for (Enemy e : enemies) {
             e.update();
+            if (e.isOver() && !e.isScoreGot()) {
+                gameScreen.plusScore(20);
+                e.setScoreGot(true);
+            }
+            if (e.getBound().intersects(mainCharacter.getBound()))
+                mainCharacter.setAlive(false);
         }
         Enemy firstEnemy = enemies.get(0);
         if (enemies.get(0).isOutOfScreen()) {
@@ -39,9 +52,14 @@ public class EnemyManager {
         }
     }
 
+    public void reset() {
+        enemies.clear();
+        enemies.add(getRandomCactus());
+    }
+
     public Cactus getRandomCactus() {
         Cactus cactus;
-        cactus = new Cactus();
+        cactus = new Cactus(mainCharacter);
         cactus.setX(600);
         if (random.nextBoolean())
             cactus.setImage(imageCactus1);

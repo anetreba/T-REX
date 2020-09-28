@@ -10,14 +10,18 @@ public class Cactus extends Enemy {
     private BufferedImage image;
     private int posX, posY;
     private Rectangle rect;
+    private boolean isScoreGot = false;
+
+    private MainCharacter mainCharacter;
 
 
-    public Cactus() {
+    public Cactus(MainCharacter mainCharacter) {
         image = Resource.getResourceImage("data/cactus1.png");
 
         posX = 200;
         posY = 105;
         rect = new Rectangle();
+        this.mainCharacter = mainCharacter;
     }
 
     @Override
@@ -37,6 +41,21 @@ public class Cactus extends Enemy {
     @Override
     public void draw(Graphics g) {
         g.drawImage(image, posX, posY, null);
+    }
+
+    @Override
+    public boolean isOver() {
+        return (mainCharacter.getX() > posX);
+    }
+
+    @Override
+    public boolean isScoreGot() {
+        return isScoreGot;
+    }
+
+    @Override
+    public void setScoreGot(boolean isScoreGot) {
+        this.isScoreGot = isScoreGot;
     }
 
     @Override
