@@ -35,7 +35,7 @@ public class Land {
 
     public void update() {
         for (ImageLand imageLand : listImage) {
-            imageLand.posX -= 2;
+            imageLand.posX -= 4;
         }
         ImageLand firstElement = listImage.get(0);
 

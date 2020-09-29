@@ -107,10 +107,11 @@ public class MainCharacter {
     }
 
     public void jump() {
-        speedY = -4;
-        y += speedY;
-        state = JUMPING;
-
+        if (speedY == 0) {
+            speedY = -4;
+            y += speedY;
+            state = JUMPING;
+        }
     }
     public float getX() {
         return x;

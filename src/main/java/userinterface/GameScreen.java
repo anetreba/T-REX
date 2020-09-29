@@ -91,8 +91,6 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
     public void paint(Graphics g) {
         g.setColor(Color.decode("#f7f7f7"));
         g.fillRect(0,0, getWidth(), getHeight());
-//        g.setColor(Color.RED);
-//        g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
 
         switch (gameState) {
             case GAME_FIST_STATE:
@@ -161,30 +159,4 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
     public void keyTyped(KeyEvent e) {
 
     }
-//    @Override
-//    public void keyTyped(KeyEvent e) {
-//
-//    }
-//
-//    @Override
-//    public void keyPressed(KeyEvent e) {
-////        mainCharacter.jump();
-//    }
-//
-//    @Override
-//    public void keyReleased(KeyEvent e) {
-////        System.out.println("Key Released");
-//        switch (e.getKeyCode()) {
-//            case KeyEvent.VK_SPACE:
-//                if (gameState == GAME_FIST_STATE)
-//                    gameState = GAME_PLAY_STATE;
-//                else if (gameState == GAME_PLAY_STATE)
-//                    mainCharacter.jump();
-//                else if (gameState == GAME_OVER_STATE) {
-//                    gameState = GAME_PLAY_STATE;
-//                    resetGame();
-//                }
-//                break;
-//        }
-//    }
 }
