@@ -34,6 +34,7 @@ public class EnemyManager {
             e.update();
             if (e.isOver() && !e.isScoreGot()) {
                 gameScreen.plusScore(20);
+                mainCharacter.sound(4);
                 e.setScoreGot(true);
             }
             if (e.getBound().intersects(mainCharacter.getBound()))

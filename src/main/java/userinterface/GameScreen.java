@@ -70,6 +70,7 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
                 if (!(mainCharacter.getAlive())) {
                     gameState = GAME_OVER_STATE;
                     mainCharacter.setState(3);
+                    mainCharacter.sound(3);
                 }
                 break;
         }
@@ -80,6 +81,7 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
     }
 
     public void resetGame() {
+        score = 0;
         mainCharacter.setAlive(true);
         mainCharacter.setState(0);
         mainCharacter.setX(50);

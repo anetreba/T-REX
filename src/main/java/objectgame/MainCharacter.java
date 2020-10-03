@@ -3,9 +3,12 @@ package objectgame;
 import utils.Animation;
 import utils.Resource;
 
+import javax.sound.sampled.*;
 import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import static userinterface.GameScreen.GRAVITY;
 import static userinterface.GameScreen.GROUNDY;
@@ -26,6 +29,7 @@ public class MainCharacter {
     private static final int JUMPING = 1;
     private static final int DOWN_RUN = 2;
     private static final int DEATH = 3;
+    private static final int SCORE = 4;
 
     public void setState(int state) {
         this.state = state;
@@ -85,6 +89,48 @@ public class MainCharacter {
     }
 
 
+    public void sound(int soundState) {
+        String soundName = null;
+
+        System.out.println(soundState);
+        switch (soundState) {
+            case JUMPING:
+                soundName = "data/jump.wav";
+                break;
+//            case DOWN_RUN:
+//                soundName = "data/RUNAWAY.WAV";
+//                break;
+            case SCORE:
+                soundName = "data/scoreup.wav";
+                break;
+            case DEATH:
+                soundName = "data/dead.wav";
+                break;
+        }
+
+        AudioInputStream audioInputStream = null;
+        try {
+            assert soundName != null;
+            audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+        } catch (UnsupportedAudioFileException | IOException e) {
+            e.printStackTrace();
+        }
+        Clip clip = null;
+        try {
+            clip = AudioSystem.getClip();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert clip != null;
+            clip.open(audioInputStream);
+        } catch (LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
+        clip.start();
+    }
+
+
 
     public void draw(Graphics g) {
         switch(state) {
@@ -111,6 +157,7 @@ public class MainCharacter {
             speedY = -4;
             y += speedY;
             state = JUMPING;
+            sound(JUMPING);
         }
     }
     public float getX() {
