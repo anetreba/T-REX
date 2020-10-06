@@ -15,13 +15,13 @@ public class Clouds {
     public Clouds() {
         cloudImage = Resource.getResourceImage("data/cloud.PNG");
         clouds = new ArrayList<>();
-        int j = 10;
+        int j = 20;
 
-        for (int i = 150; i < 600; i += 150, j += 10) {
+        for (int i = 150; i < 800; i += 150, j += 10) {
             Cloud cloud1 = new Cloud();
             cloud1.posX = i;
             if (i % 100 != 0)
-                cloud1.posY = 80 - j;
+                cloud1.posY = 170 - j;
 
             clouds.add(cloud1);
         }
@@ -33,7 +33,7 @@ public class Clouds {
         }
         Cloud firstCloud = clouds.get(0);
         if (firstCloud.posX + cloudImage.getWidth() < 0) {
-            firstCloud.posX = 600;
+            firstCloud.posX = 800;
             clouds.remove(firstCloud);
             clouds.add(firstCloud);
         }

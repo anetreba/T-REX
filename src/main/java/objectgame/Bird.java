@@ -1,13 +1,13 @@
 package objectgame;
 
+import utils.Animation;
 import utils.Resource;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Cactus extends Enemy {
-
-    private BufferedImage image;
+public class Bird extends Enemy {
+    private Animation bird;
     private int posX, posY;
     private Rectangle rect;
     private boolean isScoreGot = false;
@@ -15,17 +15,20 @@ public class Cactus extends Enemy {
     private MainCharacter mainCharacter;
 
 
-    public Cactus(MainCharacter mainCharacter) {
-        image = Resource.getResourceImage("data/cactus1.png");
+    public Bird(MainCharacter mainCharacter) {
+        bird = new Animation(100);
+        bird.addFrame(Resource.getResourceImage("data/100-offline-sprite.png"));
+        bird.addFrame(Resource.getResourceImage("data/bird2.png"));
 
         posX = 200;
-        posY = 227;
+        posY = 105;
         rect = new Rectangle();
         this.mainCharacter = mainCharacter;
     }
 
     @Override
     public void update(int score) {
+        bird.update();
         if (score > 600)
             posX -= 8;
         else if (score < 100)
@@ -34,8 +37,8 @@ public class Cactus extends Enemy {
             posX -= 6;
         rect.x = posX;
         rect.y = posY;
-        rect.width = image.getWidth();
-        rect.height = image.getHeight();
+        rect.width = bird.getFrame().getWidth();
+        rect.height = bird.getFrame().getHeight();
     }
 
     @Override
@@ -45,7 +48,7 @@ public class Cactus extends Enemy {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image, posX, posY, null);
+        g.drawImage(bird.getFrame(), posX, posY, null);
     }
 
     @Override
@@ -65,7 +68,7 @@ public class Cactus extends Enemy {
 
     @Override
     public boolean isOutOfScreen() {
-        return posX + image.getWidth() < 0;
+        return posX + bird.getFrame().getWidth() < 0;
     }
 
     public void setX(int x) {
@@ -74,9 +77,5 @@ public class Cactus extends Enemy {
 
     public void setY(int y) {
         this.posY = y;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
     }
 }

@@ -23,7 +23,7 @@ public class Land {
         imageLand2 = Resource.getResourceImage("data/land2.png");
         imageLand3 = Resource.getResourceImage("data/land3.png");
         listImage = new ArrayList<ImageLand>();
-        int numberOfLandTitle = 600 / imageLand1.getWidth() + 2;
+        int numberOfLandTitle = 800 / imageLand1.getWidth() + 2;
         for (int i = 0; i < numberOfLandTitle; i++) {
             ImageLand imageLand = new ImageLand();
             imageLand.posX = (int) (i * imageLand1.getWidth());
@@ -33,9 +33,14 @@ public class Land {
 
     }
 
-    public void update() {
+    public void update(int score) {
         for (ImageLand imageLand : listImage) {
-            imageLand.posX -= 4;
+            if (score > 600)
+                imageLand.posX -= 8;
+            else if (score < 100)
+                imageLand.posX -= 4;
+            else
+                imageLand.posX -= 6;
         }
         ImageLand firstElement = listImage.get(0);
 

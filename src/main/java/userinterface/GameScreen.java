@@ -1,6 +1,7 @@
 package userinterface;
 
 import objectgame.*;
+import utils.MouseInput;
 import utils.Resource;
 
 import javax.swing.*;
@@ -13,8 +14,13 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
     public static final int GAME_FIST_STATE = 0;
     public static final int GAME_PLAY_STATE = 1;
     public static final int GAME_OVER_STATE = 2;
+    public static final int GAME_SETT_STATE = 3;
+
+    public static boolean avatar = false;
+    private Settings settings;
+
     public static final float GRAVITY = 0.1f;
-    public static final float GROUNDY = 150; //by pixel
+    public static final float GROUNDY = 270; //by pixel
 
     private MainCharacter mainCharacter;
     private Thread thread;
@@ -24,23 +30,36 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
 
     private EnemyManager enemyManager;
 
+    public int getScore() {
+        return score;
+    }
+
     private int score = 0;
 
-    private int gameState = GAME_FIST_STATE;
+    private int hi_score = 0;
+
+    public static int gameState = GAME_FIST_STATE;
     private boolean isKeyPressed = false;
 
     private BufferedImage imageGameOverText;
     private BufferedImage imageReset;
 
+    private MenuBar menuBar;
+    private MouseInput mouseInput;
+
 
     public GameScreen() {
+        settings = new Settings(this);
         thread = new Thread(this);
+        menuBar = new MenuBar();
         mainCharacter = new MainCharacter();
         land = new Land(this);
         cloud = new Clouds();
         enemyManager = new EnemyManager(mainCharacter, this);
         imageGameOverText = Resource.getResourceImage("data/gameover_text.png");
         imageReset = Resource.getResourceImage("data/replay_button.png");
+        mouseInput = new MouseInput();
+        this.addMouseListener(mouseInput);
     }
 
     public void startGame() {
@@ -65,8 +84,8 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
             case GAME_PLAY_STATE:
                 mainCharacter.update();
                 cloud.update();
-                land.update();
-                enemyManager.update();
+                land.update(score);
+                enemyManager.update(score);
                 if (!(mainCharacter.getAlive())) {
                     gameState = GAME_OVER_STATE;
                     mainCharacter.setState(3);
@@ -81,6 +100,9 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
     }
 
     public void resetGame() {
+        if (score > hi_score) {
+            hi_score = score;
+        }
         score = 0;
         mainCharacter.setAlive(true);
         mainCharacter.setState(0);
@@ -94,25 +116,40 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
         g.setColor(Color.decode("#f7f7f7"));
         g.fillRect(0,0, getWidth(), getHeight());
 
+        if (gameState != GAME_FIST_STATE)
+            this.removeMouseListener(mouseInput);
+
         switch (gameState) {
             case GAME_FIST_STATE:
-                mainCharacter.draw(g);
+                g.drawImage(Resource.getResourceImage("data/imgonline-com-ua-Resize-FCO2RUZbhttV.jpg"), 0, 0, null);
+                menuBar.render(g);
+                break;
+            case GAME_SETT_STATE:
+                g.drawImage(Resource.getResourceImage("data/set.jpg"), 0, 0, null);
+                settings.draw(g);
+                this.addMouseListener(settings);
+                System.out.println(avatar);
                 break;
             case GAME_PLAY_STATE:
+//                g.setColor(Color.decode("#f7f7f7"));
+//                g.fillRect(0,0, getWidth(), getHeight());
                 land.draw(g);
                 cloud.draw(g);
                 mainCharacter.draw(g);
                 enemyManager.draw(g);
                 g.setColor(Color.BLACK);
-                g.drawString("Hi: " + String.valueOf(score), 500, 20);
+                g.drawString("SCORE: " + String.valueOf(score), 680, 20);
+                g.drawString("HI: " + String.valueOf(hi_score), 610, 20);
                 break;
             case GAME_OVER_STATE:
+//                g.setColor(Color.decode("#f7f7f7"));
+//                g.fillRect(0,0, getWidth(), getHeight());
                 land.draw(g);
                 cloud.draw(g);
                 mainCharacter.draw(g);
                 enemyManager.draw(g);
-                g.drawImage(imageGameOverText, 200, 50, null);
-                g.drawImage(imageReset, 280, 80, null);
+                g.drawImage(imageGameOverText, 300, 110, null);
+                g.drawImage(imageReset, 380, 150, null);
                 break;
         }
     }

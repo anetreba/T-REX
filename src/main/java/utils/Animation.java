@@ -8,6 +8,11 @@ import java.util.ArrayList;
 public class Animation {
     private List<BufferedImage> frames;
     private int frameindex = 0;
+
+    public void setDeltaTime(int deltaTime) {
+        this.deltaTime = deltaTime;
+    }
+
     private int deltaTime;
     private long priviousTime;
 

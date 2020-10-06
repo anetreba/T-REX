@@ -67,10 +67,18 @@ public class MainCharacter {
             speedY += GRAVITY;
             y += speedY;
         }
-        rect.x = (int)x;
-        rect.y = (int)y;
-        rect.width = characterRun.getFrame().getWidth();
-        rect.height = characterRun.getFrame().getHeight();
+        if (state == NORMAL_RUN) {
+            rect.y = (int)y;
+            rect.x = (int)x;
+            rect.width = characterRun.getFrame().getWidth();
+            rect.height = characterRun.getFrame().getHeight();
+        }
+        else if (state == DOWN_RUN) {
+            rect.x = (int)x;
+            rect.y = (int)y + 20;
+            rect.width = downRunAnim.getFrame().getWidth();
+            rect.height = downRunAnim.getFrame().getHeight();
+        }
     }
 
     public Rectangle getBound() {
@@ -78,9 +86,6 @@ public class MainCharacter {
     }
 
     public void down(boolean isDown) {
-        if(state == JUMPING) {
-            return;
-        }
         if(isDown) {
             state = DOWN_RUN;
         } else {

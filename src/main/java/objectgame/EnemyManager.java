@@ -29,11 +29,17 @@ public class EnemyManager {
         enemies.add(getRandomCactus());
     }
 
-    public void update() {
+    public void update(int score) {
         for (Enemy e : enemies) {
-            e.update();
+            e.update(score);
             if (e.isOver() && !e.isScoreGot()) {
-                gameScreen.plusScore(20);
+                if (gameScreen.getScore() > 600)
+                    gameScreen.plusScore(60);
+                if (gameScreen.getScore() > 100)
+                    gameScreen.plusScore(40);
+                else {
+                    gameScreen.plusScore(20);
+                }
                 mainCharacter.sound(4);
                 e.setScoreGot(true);
             }
@@ -58,15 +64,22 @@ public class EnemyManager {
         enemies.add(getRandomCactus());
     }
 
-    public Cactus getRandomCactus() {
+    public Enemy getRandomCactus() {
         Cactus cactus;
         cactus = new Cactus(mainCharacter);
-        cactus.setX(600);
-        if (random.nextBoolean())
+        cactus.setX(800);
+        int flag = random.nextInt(3);
+        if (flag == 0)
             cactus.setImage(imageCactus1);
-        else {
+        else if (flag == 1){
             cactus.setImage(ImageCactus2);
-            cactus.setY(120);
+            cactus.setY(240);
+        }
+        else if (flag == 2) {
+            Bird bird = new Bird(mainCharacter);
+            bird.setX(800);
+            bird.setY(200);
+            return bird;
         }
         return cactus;
     }
