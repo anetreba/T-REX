@@ -85,7 +85,7 @@ set CMD_LINE_ARGS=%*
 set CLASSPATH=%APP_HOME%\lib\T-Rex-1.0-SNAPSHOT.jar
 
 @rem Execute T-Rex
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %T_REX_OPTS%  -classpath "%CLASSPATH%" userinterface.Gamewindow %CMD_LINE_ARGS%
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %T_REX_OPTS%  -classpath "%CLASSPATH%" world.ucode.userinterface.Gamewindow %CMD_LINE_ARGS%
 
 :end
 @rem End local scope for the variables with windows NT shell
