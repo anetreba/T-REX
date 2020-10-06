@@ -193,6 +193,10 @@ public class GameScreen extends JPanel implements Runnable, KeyListener {
             }
             else if (e.getKeyCode() == KeyEvent.VK_SPACE)
                 mainCharacter.setState(0);
+            else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                gameState = GAME_FIST_STATE;
+                this.addMouseListener(mouseInput);
+            }
         }
     }
 

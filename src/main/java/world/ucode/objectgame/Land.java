@@ -35,7 +35,9 @@ public class Land {
 
     public void update(int score) {
         for (ImageLand imageLand : listImage) {
-            if (score > 600)
+            if (score > 1100)
+                imageLand.posX -= 10;
+            else if (score > 600)
                 imageLand.posX -= 8;
             else if (score < 100)
                 imageLand.posX -= 4;

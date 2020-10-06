@@ -126,7 +126,6 @@ public class MainCharacter {
     public void sound(int soundState) {
         String soundName = null;
 
-        System.out.println(soundState);
         switch (soundState) {
             case JUMPING:
                 soundName = "src/resources/JUMP1.wav";

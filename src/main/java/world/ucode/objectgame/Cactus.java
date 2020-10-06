@@ -26,7 +26,9 @@ public class Cactus extends Enemy {
 
     @Override
     public void update(int score) {
-        if (score > 600)
+        if (score > 1100)
+            posX -= 10;
+        else if (score > 600)
             posX -= 8;
         else if (score < 100)
             posX -= 4;

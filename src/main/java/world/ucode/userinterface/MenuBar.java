@@ -18,7 +18,6 @@ public class MenuBar {
         Font fnt1 = new Font("standard 07_57", Font.BOLD, 25);
         g.setFont(fnt1);
         g.drawString("PLAY", playButton.x + 19, playButton.y + 30);
-        System.out.println();
         g.drawString("CHOSE AVATAR", helpButton.x + 19, helpButton.y + 30);
         g.drawString("QUIT", quitButton.x + 19, quitButton.y + 30);
     }

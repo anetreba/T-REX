@@ -29,6 +29,8 @@ public class Bird extends Enemy {
     @Override
     public void update(int score) {
         bird.update();
+        if (score > 1100)
+            posX -= 10;
         if (score > 600)
             posX -= 8;
         else if (score < 100)
