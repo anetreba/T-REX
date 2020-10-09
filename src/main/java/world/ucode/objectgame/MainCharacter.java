@@ -68,14 +68,25 @@ public class MainCharacter {
     }
 
     public void changeCharacter(boolean avatar) {
+        this.avatar = avatar;
+        characterRun.clearFrames();
+        downRunAnim.clearFrames();
         if (avatar) {
-            this.avatar = avatar;
             characterRun.addFrame(Resource.getResourceImage("src/resources/new-main-character1.png"));
             characterRun.addFrame(Resource.getResourceImage("src/resources/new-main-character2.png"));
             jumping = Resource.getResourceImage("src/resources/new-main-character3.png");
             deathImage = Resource.getResourceImage("src/resources/new-main-character4.png");
             downRunAnim.addFrame(Resource.getResourceImage("src/resources/new-main-character5.png"));
             downRunAnim.addFrame(Resource.getResourceImage("src/resources/new-main-character6.png"));
+        }
+        else {
+
+            characterRun.addFrame(Resource.getResourceImage("src/resources/main-character1.png"));
+            characterRun.addFrame(Resource.getResourceImage("src/resources/main-character2.png"));
+            jumping = Resource.getResourceImage("src/resources/main-character3.png");
+            deathImage = Resource.getResourceImage("src/resources/main-character4.png");
+            downRunAnim.addFrame(Resource.getResourceImage("src/resources/main-character5.png"));
+            downRunAnim.addFrame(Resource.getResourceImage("src/resources/main-character6.png"));
         }
     }
 

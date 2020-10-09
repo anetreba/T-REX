@@ -34,6 +34,10 @@ public class Animation {
         frames.add(frame);
     }
 
+    public void clearFrames() {
+        frames.clear();
+    }
+
     public BufferedImage getFrame() {
         return frames.size() > 0 ? frames.get(frameindex) : null;
     }
